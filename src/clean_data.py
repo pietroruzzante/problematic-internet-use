@@ -1,32 +1,40 @@
 from sklearn.impute import SimpleImputer
 
-def clean_data(df_filtered, col_name):
-
-    # Estrazione colonna target e id
-    sii_column = df_filtered['sii']
-    id_column = df_filtered['id']
+def clean_data(df_train_filtered, df_test_filtered):
+    # Estrazione colonna target e id per il training set
+    sii_column_train = df_train_filtered['sii']
+    id_column_train = df_train_filtered['id']
     
-    #Rimozione righe con troppi NaN
-    rows_to_keep = df_filtered.isna().sum(axis=1) <= 4
-    df_filtered_cleaned = df_filtered.loc[rows_to_keep].copy()  
+    # Pulizia del dataset di training
+    # Rimozione righe con troppi NaN nel dataset di training
+    rows_to_keep_train = df_train_filtered.isna().sum(axis=1) <= 6
+    df_train_cleaned = df_train_filtered.loc[rows_to_keep_train].copy()
 
-    # Colonne numeriche
-    numerical_columns = df_filtered_cleaned.select_dtypes(include=['float64', 'int64']).columns
-    #print("Colonne numeriche:", numerical_columns)
+    # Colonne numeriche nel dataset di training
+    numerical_columns_train = df_train_cleaned.select_dtypes(include=['float64', 'int64']).columns
 
-    # Data imputation
-    num_imputer = SimpleImputer(strategy='median')
-    df_filtered_cleaned[numerical_columns] = num_imputer.fit_transform(df_filtered_cleaned[numerical_columns])
+    # Data imputation per il dataset di training
+    num_imputer_train = SimpleImputer(strategy='median')
+    df_train_cleaned[numerical_columns_train] = num_imputer_train.fit_transform(df_train_cleaned[numerical_columns_train])
 
+    # Ritorno al df_train completo
+    df_train_cleaned['sii'] = sii_column_train.loc[rows_to_keep_train].values
+    df_train_cleaned['id'] = id_column_train.loc[rows_to_keep_train].values
 
-    # Ritorno al df completo
-    df_filtered_cleaned['sii'] = sii_column.loc[rows_to_keep].values
-    df_filtered_cleaned['id'] = id_column.loc[rows_to_keep].values
+    # Pulizia del dataset di test (senza eliminazione di righe)
+    id_column_test = df_test_filtered['id']  # Estrazione colonna id per il test set
 
-    """ DEBUG
-    # Mostra le prime righe del DataFrame pulito e verifica la presenza di NaN solo in sii
-    print(df_filtered_cleaned.head())
-    print(df_filtered_cleaned.shape)
-    print("Valori NaN dopo l'imputazione:\n", df_filtered_cleaned.isna().sum())
-    """
-    return df_filtered_cleaned
+    # Creazione di una copia del dataset di test per evitare modifiche dirette
+    df_test_cleaned = df_test_filtered.copy()
+
+    # Colonne numeriche nel dataset di test
+    numerical_columns_test = df_test_cleaned.select_dtypes(include=['float64', 'int64']).columns
+
+    # Data imputation per il dataset di test (senza eliminazione di righe)
+    num_imputer_test = SimpleImputer(strategy='median')
+    df_test_cleaned[numerical_columns_test] = num_imputer_test.fit_transform(df_test_cleaned[numerical_columns_test])
+
+    # Ritorno al df_test completo
+    df_test_cleaned['id'] = id_column_test.values
+
+    return df_train_cleaned, df_test_cleaned
