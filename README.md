@@ -2,7 +2,6 @@
 
 Description
 
-
 Questo progetto mira a [descrizione degli obiettivi principali], utilizzando tecniche di machine learning e analisi dei dati per [scopo specifico, come classificare o etichettare dati mancanti].
 
 Struttura delle Cartelle
@@ -43,4 +42,3 @@ Modelli Salvati: I modelli addestrati saranno salvati nella cartella models/.
 Contatti
 Per domande o suggerimenti, contattare [tuo indirizzo email].
 
-Con questo README, qualsiasi collaboratore (o anche tu in futuro) può comprendere rapidamente il progetto, come navigare tra le cartelle e avviare i vari script.# problematic-internet-use
