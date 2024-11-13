@@ -1,9 +1,10 @@
-Project Name
+**Problematic Internet Use**
 
-Descrizione
-Una breve descrizione del progetto, ad esempio:
+Description
+
 
 Questo progetto mira a [descrizione degli obiettivi principali], utilizzando tecniche di machine learning e analisi dei dati per [scopo specifico, come classificare o etichettare dati mancanti].
+
 Struttura delle Cartelle
 data/raw/: Contiene i dati grezzi originali.
 data/processed/: (Opzionale) Contiene i dati preprocessati pronti per l'uso.
