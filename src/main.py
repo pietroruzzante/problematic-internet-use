@@ -1,9 +1,12 @@
+import sys
+import os
 import pandas as pd
-import sys 
-from src.preprocessing import preprocessing
-from src.clean_data import clean_data
-from src.unsupervised_labelling import unsupervised_labelling
-from src.statistical_analysis import statistical_analysis
+from preprocessing import preprocessing
+from clean_data import clean_data
+from unsupervised_labelling import unsupervised_labelling
+from statistical_analysis import statistical_analysis
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def main():
     # Carica il dataset
