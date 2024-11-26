@@ -22,9 +22,7 @@ logs/
 # File di output Jupyter Notebook
 *.ipynb_checkpoints
 
-# Dati processati e modelli salvati
-data/processed/
-models/
+
 
 # File temporanei
 *.tmp
